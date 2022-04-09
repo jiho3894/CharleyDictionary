@@ -2,20 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 
-const Progress = () => {
-  const bucket_list = useSelector((state) => state.bucket.list);
-
-  let count = 0;
-  bucket_list.map((b) => (b.completed ? count++ : null));
-
-  return (
-    <ProgressBar>
-      <HighLight width={(count / bucket_list.length) * 100 + "%"} />
-      <Dot />
-    </ProgressBar>
-  );
-};
-
 const ProgressBar = styled.div`
   background: #eee;
   width: 100%;
@@ -42,5 +28,19 @@ const Dot = styled.div`
   border-radius: 40px;
   margin: 0px 0px 0px -20px;
 `;
+
+const Progress = () => {
+  const bucket_list = useSelector((state) => state.bucket.list);
+
+  let count = 0;
+  bucket_list.map((b) => (b.completed ? count++ : null));
+
+  return (
+    <ProgressBar>
+      <HighLight width={(count / bucket_list.length) * 100 + "%"} />
+      <Dot />
+    </ProgressBar>
+  );
+};
 
 export default Progress;

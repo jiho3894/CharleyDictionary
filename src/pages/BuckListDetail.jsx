@@ -1,10 +1,10 @@
 import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { deleteBucketFB, updateBucketFB } from "../redux/modules/bucket";
 import Button from "@mui/material/Button";
 import Items from "../Components/Items";
 import styled from "styled-components";
+import { deleteDicFB, updateDicFB } from "../redux/modules/dictionary";
 
 const Back = styled.div`
   width: 40px;
@@ -46,15 +46,14 @@ const BuckListDetail = () => {
   const example = useRef(null);
   const redux_lists = useSelector((state) => state.bucket.list);
   const lists = redux_lists[params.index];
-  console.log(lists.id);
   const [click, setClick] = useState(false);
   const onDelete = () => {
-    dispatch(deleteBucketFB(lists.id));
+    dispatch(deleteDicFB(lists.id));
     navigate(-1);
   };
-  const onUpdate = async () => {
-    await dispatch(
-      updateBucketFB(
+  const onUpdate = () => {
+    dispatch(
+      updateDicFB(
         lists.id,
         text.current.value,
         explanation.current.value,

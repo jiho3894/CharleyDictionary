@@ -1,20 +1,24 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const Container = styled.div`
   width: 100%;
   height: 80px;
-  background-color: silver;
   display: flex;
   justify-content: center;
   align-items: center;
+  span {
+    font-size: 60px;
+    font-weight: 600;
+    color: coral;
+  }
 `;
+
 const Header = () => {
   return (
     <React.Fragment>
       <Container>
-        <Link to="/1week">Charley 사전</Link>
+        <span>Charley 사전</span>
       </Container>
     </React.Fragment>
   );

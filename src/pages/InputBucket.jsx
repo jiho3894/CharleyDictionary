@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { useDispatch } from "react-redux";
-import { addBucketFB } from "../redux/modules/bucket";
+import { addDicFB } from "../redux/modules/dictionary";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
@@ -80,7 +80,7 @@ const InputBucket = () => {
   const navigation = useNavigate();
   const addBucketList = () => {
     dispatch(
-      addBucketFB({
+      addDicFB({
         text: text.current.value,
         explanation: explanation.current.value,
         example: example.current.value,

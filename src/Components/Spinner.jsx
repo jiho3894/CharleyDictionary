@@ -3,16 +3,6 @@ import styled from "styled-components";
 import Stack from "@mui/material/Stack";
 import CircularProgress from "@mui/material/CircularProgress";
 
-const Spinner = () => {
-  return (
-    <Outter>
-      <Stack sx={{ color: "grey.500" }} spacing={2} direction="row">
-        <CircularProgress color="secondary" />
-      </Stack>
-    </Outter>
-  );
-};
-
 const Outter = styled.div`
   position: absolute;
   top: 0;
@@ -23,5 +13,15 @@ const Outter = styled.div`
   align-items: center;
   justify-content: center;
 `;
+
+const Spinner = () => {
+  return (
+    <Outter>
+      <Stack sx={{ color: "grey.500" }} spacing={2} direction="row">
+        <CircularProgress color="secondary" />
+      </Stack>
+    </Outter>
+  );
+};
 
 export default Spinner;

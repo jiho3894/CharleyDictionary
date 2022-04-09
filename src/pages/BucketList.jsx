@@ -1,16 +1,14 @@
 import React, { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import Items from "../Components/Items";
-import { clearBucketFB } from "../redux/modules/bucket";
 import { Button } from "@mui/material";
 
 const BucketList = () => {
   const navigate = useNavigate();
-  const [counter, setCounter] = useState(7);
+  const [counter, setCounter] = useState(5);
   const my_lists = useSelector((state) => state.bucket.list);
-  const dispatch = useDispatch();
   const handleScroll = useCallback(() => {
     const { innerHeight } = window;
     const { scrollHeight } = document.body;
@@ -32,13 +30,6 @@ const BucketList = () => {
           <React.Fragment key={index}>
             <ItemStyle completed={list.completed} className="list_item">
               <Items list={list} />
-              <Button
-                style={{ position: "absolute", top: 0, right: 0 }}
-                onClick={() => dispatch(clearBucketFB(my_lists[index].id))}
-                variant="contained"
-              >
-                이해완료
-              </Button>
               <Button
                 variant="contained"
                 onClick={() => {

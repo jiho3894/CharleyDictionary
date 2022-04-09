@@ -1,6 +1,6 @@
-import { combineReducers, createStore, applyMiddleware, compose } from "redux";
+import { combineReducers, createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
-import bucket from "./modules/bucket";
+import bucket from "./modules/dictionary";
 
 const middlewares = [thunk];
 const rootReducer = combineReducers({ bucket });
