@@ -16,6 +16,7 @@ const UPDATE = "bucket/UPDATE";
 const DELETE = "bucket/DELETE";
 const LOAD = "bucket/LOAD";
 const LOADED = "bucket/LOADED";
+const CLEAR = "bucket/CLEAR";
 
 const initialState = {
   is_loaded: false,
@@ -43,6 +44,10 @@ export function isLoaded(loaded) {
   return { type: LOADED, loaded };
 }
 
+export function clearBucket(bucket) {
+  return { type: CLEAR, bucket };
+}
+
 //middlewares
 export const loadBucketFB = () => {
   return async (dispatch) => {
@@ -58,15 +63,26 @@ export const loadBucketFB = () => {
 };
 
 export const addBucketFB = (bucket) => {
-  return async (dispatch) => {
-    dispatch(isLoaded(false));
-    const docRef = await addDoc(collection(db, "bucket"), bucket);
+  return (dispatch) => {
+    const docRef = addDoc(collection(db, "bucket"), bucket);
     const bucket_data = { id: docRef.id, ...bucket };
     dispatch(createBucket(bucket_data));
   };
 };
 
-export const updateBucketFB = (bucket_id) => {
+export const updateBucketFB = (bucket_id, text, explanation, example) => {
+  return async (dispatch, getState) => {
+    const docRef = doc(db, "bucket", bucket_id);
+    await updateDoc(docRef, { completed: true, text, explanation, example });
+    const bucket_list = getState().bucket.list;
+    const bucket_index = bucket_list.findIndex((b) => {
+      return b.id === bucket_id;
+    });
+    dispatch(updateBucket(bucket_index));
+  };
+};
+
+export const clearBucketFB = (bucket_id) => {
   return async (dispatch, getState) => {
     const docRef = doc(db, "bucket", bucket_id);
     await updateDoc(docRef, { completed: true });
@@ -99,7 +115,8 @@ export const deleteBucketFB = (bucket_id) => {
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
     case LOAD: {
-      return { list: action.bucket_list, is_loaded: true };
+      const list = [...action.bucket_list].reverse();
+      return { list, is_loaded: true };
     }
     case CREATE: {
       const new_bucket_list = [...state.list, action.bucket];
@@ -114,7 +131,6 @@ export default function reducer(state = initialState, action = {}) {
           return l;
         }
       });
-      console.log({ list: new_bucket_list });
       return { ...state, list: new_bucket_list };
     }
 

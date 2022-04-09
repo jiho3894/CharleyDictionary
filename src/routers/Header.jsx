@@ -14,9 +14,7 @@ const Header = () => {
   return (
     <React.Fragment>
       <Container>
-        <Link to="/1week">1주차</Link>
-        {/* <Link to="/2week">2주차</Link>
-        <Link to="/3week">3주차</Link> */}
+        <Link to="/1week">Charley 사전</Link>
       </Container>
     </React.Fragment>
   );

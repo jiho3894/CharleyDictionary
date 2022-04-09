@@ -1,34 +1,27 @@
-import {
+/* import {
   addDoc,
   collection,
   deleteDoc,
   doc,
   getDocs,
   updateDoc,
-} from "firebase/firestore";
-import React, { useEffect, useRef } from "react";
+} from "firebase/firestore"; */
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Outlet, Route, Routes } from "react-router-dom";
+import { Link, Route, Routes } from "react-router-dom";
 import Spinner from "../Components/Spinner";
-import { addBucketFB, loadBucketFB } from "../redux/modules/bucket";
+import { loadBucketFB } from "../redux/modules/bucket";
 import styled from "styled-components";
 import BucketList from "./BucketList";
 import BuckListDetail from "./BuckListDetail";
 import NotFound from "../Components/Error";
+import { Button } from "@mui/material";
 
 function Home() {
-  const text = useRef(null);
   const dispatch = useDispatch();
   const is_loaded = useSelector((state) => state.bucket.is_loaded);
-  console.log(is_loaded);
-  const addBucketList = () => {
-    dispatch(
-      addBucketFB({
-        text: text.current.value,
-        completed: false,
-        createAt: Date.now(),
-      })
-    );
+  const onClick = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
   useEffect(() => {
     (async () => {
@@ -55,11 +48,11 @@ function Home() {
       await deleteDoc(docRef); */
       dispatch(loadBucketFB());
     })();
-  }, []);
+  }, [dispatch]);
   return (
     <React.Fragment>
       <Container>
-        <Title>내 버킷리스트</Title>
+        <Title>MY DICTIONARY</Title>
         {/* <Progress /> */}
         <Line />
         {!is_loaded ? (
@@ -72,49 +65,34 @@ function Home() {
           </Routes>
         )}
       </Container>
-      <Input>
-        <input type="text" ref={text} />
-        <button onClick={addBucketList}>추가하기</button>
-      </Input>
+      <Top onClick={onClick}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth={2}
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M5 11l7-7 7 7M5 19l7-7 7 7"
+          />
+        </svg>
+      </Top>
+      <AddBucket>
+        <Link to="/inputBucket">
+          <Button variant="contained">ADD DICTIONARY</Button>
+        </Link>
+      </AddBucket>
     </React.Fragment>
   );
 }
 
-const Input = styled.div`
-  max-width: 350px;
-  min-height: 10vh;
-  background-color: #fff;
-  padding: 16px;
-  margin: 20px auto;
-  border-radius: 5px;
-  border: 1px solid #ddd;
-  display: flex;
-  & > * {
-    padding: 5px;
-  }
-  & input {
-    border: 1px solid #888;
-    width: 70%;
-    margin-right: 10px;
-  }
-
-  & input:focus {
-    outline: none;
-    border: 1px solid #a673ff;
-  }
-
-  & button {
-    width: 25%;
-    color: #fff;
-    border: #a673ff;
-    background: #a673ff;
-  }
-`;
-
 const Container = styled.div`
   max-width: 350px;
-  min-height: 60vh;
-  background-color: #fff;
+  background-color: #81ecec;
   position: relative;
   padding: 16px;
   margin: 20px auto;
@@ -123,13 +101,44 @@ const Container = styled.div`
 `;
 
 const Title = styled.h1`
-  color: slateblue;
-  text-align: center;
+  color: black;
 `;
 
 const Line = styled.hr`
-  margin: 16px 0px;
-  border: 1px dotted #ddd;
+  margin: 8px 0px;
+`;
+
+const Top = styled.div`
+  position: fixed;
+  right: 30px;
+  bottom: 30px;
+  width: 45px;
+  height: 45px;
+  border-radius: 100%;
+  font-weight: 700;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  color: #9c88ff;
+  cursor: pointer;
+  @media screen and (max-width: 769px) {
+    width: 20px;
+    height: 20px;
+    font-size: 12px;
+  }
+  &:hover {
+    svg {
+      transform: translateY(-5px);
+      transition: all 0.1s;
+    }
+  }
+`;
+
+const AddBucket = styled.div`
+  position: fixed;
+  right: 80px;
+  bottom: 30px;
 `;
 
 export default Home;
