@@ -14,7 +14,7 @@ const BucketList = () => {
     const { scrollHeight } = document.body;
     const { scrollTop } = document.documentElement;
     if (Math.round(scrollTop + innerHeight) >= scrollHeight) {
-      setCounter(counter + 100);
+      setCounter(counter + 5);
     }
   }, [counter]);
   useEffect(() => {

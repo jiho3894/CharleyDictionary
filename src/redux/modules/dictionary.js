@@ -36,7 +36,7 @@ export const isLoaded = (loaded) => ({ type: LOADED, loaded });
 export const loadDicFB = () => {
   return async (dispatch) => {
     const dic_data = await getDocs(
-      query(collection(db, "bucket"), orderBy("createAt"))
+      query(collection(db, "bucket"), orderBy("createAt", "desc"))
     );
     let dic_list = [];
     dic_data.forEach((doc) => {
@@ -85,7 +85,7 @@ export const deleteDicFB = (dic_id) => {
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
     case LOAD: {
-      const list = [...action.dic_list].reverse();
+      const list = [...action.dic_list];
       return { list, is_loaded: true };
     }
 
