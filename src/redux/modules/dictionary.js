@@ -47,10 +47,9 @@ export const loadDicFB = () => {
 };
 
 export const addDicFB = (dic) => {
-  return (dispatch) => {
-    const docRef = addDoc(collection(db, "bucket"), dic);
-    const dic_data = { ...dic, id: docRef.id };
-    dispatch(createDic(dic_data));
+  return async () => {
+    const docRef = await addDoc(collection(db, "bucket"), dic);
+    return { ...dic, id: docRef.id };
   };
 };
 

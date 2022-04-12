@@ -1,17 +1,14 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 
-const FIREBASE_AUTH_DOMAIN = process.env.REACT_APP_FIREBASE_AUTH_DOMAIN;
-const FIREBASE_STORAGEBUCKET = process.env.REACT_APP_FIREBASE_STORAGEBUCKET;
-
 const firebaseConfig = {
-  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-  authDomain: `${FIREBASE_AUTH_DOMAIN}.firebaseapp.com`,
-  projectId: process.env.REACT_APP_FIREBASE_PROJECTID,
-  storageBucket: `${FIREBASE_STORAGEBUCKET}.appspot.com`,
-  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGINGSENDERID,
-  appId: process.env.REACT_APP_FIREBASE_APPID,
-  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENTID,
+  apiKey: "AIzaSyAj2SygMOq0aExONbXyRmpP3RTLwSfos3Y",
+  authDomain: "sparta-react-a36d6.firebaseapp.com",
+  projectId: "sparta-react-a36d6",
+  storageBucket: "sparta-react-a36d6.appspot.com",
+  messagingSenderId: "579630563820",
+  appId: "1:579630563820:web:a2ccd11f1d34eebde600c9",
+  measurementId: "G-JM0W78N7B5",
 };
 
 initializeApp(firebaseConfig);
